@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Files</title>
+</head>
+<body>
+    <h1>Compare Files</h1>
+    <nav>
+        <a href="/">Root Page</a>
+    </nav>
+    <div>
+        <form id="compare_files" action="/compare_files" method="POST" enctype="multipart/form-data">
+            <h2>Add Files to Compare:</h2>
+            <p>Add 2 CSV files to compare</p>
+            <input type="file" id="file_a" name="file_a">
+            <br>
+            <input type="file" id="file_b" name="file_b">
+            <br><br><br>
+            <input type="submit" value="Upload">
+        </form>
+    </div>
+</body>
+</html>
