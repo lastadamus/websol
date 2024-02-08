@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
+from modules.file_handler import FileHandler as fh
 import magic
 import os
 
@@ -26,18 +27,16 @@ def compare_files():
         file_a = request.files["file_a"]
         file_b = request.files["file_b"]
 
-    
         if file_a.filename == "" or file_b.filename == "":
             return "Please select two files to compare."
 
-       
         if not file_a.filename.endswith(".csv") or not file_b.filename.endswith(".csv"):
             return "Please upload CSV files only."
 
         files = [file_a, file_b]
         statuses = []
         for file in files:
-            if validate_files(file=file):
+            if fh.validate_files(file=file):
                 statuses.append("True")
             else:
                 statuses.append("False")
@@ -58,21 +57,6 @@ def compare_files():
         return "Files uploading locally"
 
     return render_template("compare_files.html")
-
-
-def validate_files(file):
-    try:
-        _mime = magic.Magic(mime=True).from_buffer(file.read())
-        if not _mime == "text/csv":
-            print("not a csv")
-        status = True
-    except Exception as e:
-        status = False
-        print("File content unknown")
-    finally:
-        file.seek(0)
-
-    return status
 
 
 if __name__ == "__main__":
